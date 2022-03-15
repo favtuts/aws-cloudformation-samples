@@ -23,20 +23,14 @@ WP SureStack uses the following technologies:
 
 ## Installation and Usage
 
-For setup instructions, click [here](https://bitbucket.org/thorntechnologies/wpsurestack-public/wiki/Setup).
+For setup instructions, click [here](Setup.md).
 
 ## Links
 
-* [Product Website](https://www.thorntech.com/products/wpsurestack/)
-* [EULA](https://s3.amazonaws.com/thorntech-public-documents/eula/WPSureStackEULA.txt)
-* [Issue Tracking](https://bitbucket.org/thorntechnologies/wpsurestack-public/issues)
-* [CloudFormation Template](https://s3.amazonaws.com/thorntech-public-documents/cf-templates/WPSureStack.json) - No setup is necessary if you use this CloudFormation template. This template uses the proper AMI based on your region.
-* [List of all wiki pages](https://bitbucket.org/thorntechnologies/wpsurestack-public/wiki/browse/)
+* [CloudFormation Template](../WPSureStack.json) - No setup is necessary if you use this CloudFormation template. This template uses the proper AMI based on your region.
+* [List of all wiki pages](./)
 
-## Support
-
-Email support is available to Amazon Web Services Marketplace Customers at [support@thorntech.com](mailto:support@thorntech.com). We do not offer refunds, but you may terminate your AMI or CloudFormation Stack at any time.
 
 ## Troubleshooting
 
-For troubleshooting and frequently asked questions, refer to our [Troubleshooting Wiki Page](https://bitbucket.org/thorntechnologies/wpsurestack-public/wiki/Troubleshooting)
+For troubleshooting and frequently asked questions, refer to our [Troubleshooting Wiki Page](Troubleshooting.md)
