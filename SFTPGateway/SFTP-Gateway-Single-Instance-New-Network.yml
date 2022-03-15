@@ -1,0 +1,459 @@
+AWSTemplateFormatVersion: 2010-09-09
+Mappings:
+   RegionMap:
+    us-east-1:
+      AMI: ami-0acbf691211ecdcb9
+    us-gov-east-1:
+      AMI: ami-0bb2ca8cd10416f0a
+    us-gov-west-1:
+      AMI: ami-030f90193a7299d4e
+    us-east-2:
+      AMI: ami-0da68dd792578f643
+    us-west-1:
+      AMI: ami-087f861935f2d2bf4
+    us-west-2:
+      AMI: ami-01ae4d5fae4d61f73
+    ca-central-1:
+      AMI: ami-047c62ce70e881634
+    eu-central-1:
+      AMI: ami-07c66ac36fdfbf1e2
+    eu-west-1:
+      AMI: ami-0fa67edc52573f04c
+    eu-west-2:
+      AMI: ami-0c87b4e8f1f1728cf
+    eu-west-3:
+      AMI: ami-02c0bb133f9061964
+    eu-north-1:
+      AMI: ami-0aa6396d86c67da07
+    eu-south-1:
+      AMI: ami-0fcf05c09e7a6d835
+    ap-east-1:
+      AMI: ami-0d35b8490b7aa7eb9
+    ap-southeast-1:
+      AMI: ami-002487fea5dcf3e4d
+    ap-southeast-2:
+      AMI: ami-05029c15659ac660c
+    ap-south-1:
+      AMI: ami-01e7ab3f34817f62a
+    ap-northeast-1:
+      AMI: ami-0a152c6a78db45cf3
+    ap-northeast-2:
+      AMI: ami-09c292e43e425d869
+    me-south-1:
+      AMI: ami-04ac9eb9001b8cc32
+Conditions:
+  S3IsOpen: !Equals
+    - "open"
+    - !Ref BucketAccess
+  S3IsRestricted: !Equals
+    - "restricted"
+    - !Ref BucketAccess
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: Bucket
+        Parameters:
+          - BucketAccess
+      - Label:
+          default: Instance and storage options
+        Parameters:
+          - EC2Type
+          - DiskVolumeSize
+          - KeyPair
+      - Label:
+          default: Network
+        Parameters:
+          - VPCIPRange
+      - Label:
+          default: Access and authentication
+        Parameters:
+          - InputCIDR
+          - SFTPInputCIDR
+Parameters:
+  EC2Type:
+    Description: SFTP Gateway instance type. You can use a t3.medium for testing, but m5.large is recommended for Production.
+    Type: String
+    Default: t3.medium
+    AllowedValues:
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - t2.large
+      - t2.xlarge
+      - t2.2xlarge
+      - t3.micro
+      - t3.small
+      - t3.medium
+      - t3.large
+      - t3.xlarge
+      - t3.2xlarge
+      - m3.medium
+      - m3.large
+      - m3.xlarge
+      - m3.2xlarge
+      - m4.large
+      - m4.xlarge
+      - m4.2xlarge
+      - m4.4xlarge
+      - m4.10xlarge
+      - m4.16xlarge
+      - m5.large
+      - m5.xlarge
+      - m5.2xlarge
+      - m5.4xlarge
+      - m5.12xlarge
+      - m5.24xlarge
+      - c3.large
+      - c3.xlarge
+      - c3.2xlarge
+      - c3.4xlarge
+      - c3.8xlarge
+      - c4.large
+      - c4.xlarge
+      - c4.2xlarge
+      - c4.4xlarge
+      - c4.8xlarge
+      - c5.large
+      - c5.xlarge
+      - c5.2xlarge
+      - c5.4xlarge
+      - c5.9xlarge
+      - c5.18xlarge
+      - f1.2xlarge
+      - f1.16xlarge
+      - g2.2xlarge
+      - g2.8xlarge
+      - g3.4xlarge
+      - g3.8xlarge
+      - g3.16xlarge
+      - p2.xlarge
+      - p2.8xlarge
+      - p2.16xlarge
+      - p3.2xlarge
+      - p3.8xlarge
+      - p3.16xlarge
+      - cr1.8xlarge
+      - r3.large
+      - r3.xlarge
+      - r3.2xlarge
+      - r3.4xlarge
+      - r3.8xlarge
+      - r4.large
+      - r4.xlarge
+      - r4.2xlarge
+      - r4.4xlarge
+      - r4.8xlarge
+      - r4.16xlarge
+      - r5.large
+      - r5.xlarge
+      - r5.2xlarge
+      - r5.4xlarge
+      - r5.12xlarge
+      - r5.24xlarge
+      - r5d.large
+      - r5d.xlarge
+      - r5d.2xlarge
+      - r5d.4xlarge
+      - r5d.12xlarge
+      - r5d.24xlarge
+      - z1d.large
+      - z1d.xlarge
+      - z1d.2xlarge
+      - z1d.3xlarge
+      - z1d.6xlarge
+      - z1d.12xlarge
+      - x1.16xlarge
+      - x1.32xlarge
+      - x1e.xlarge
+      - x1e.2xlarge
+      - x1e.4xlarge
+      - x1e.8xlarge
+      - x1e.16xlarge
+      - x1e.32xlarge
+      - i2.xlarge
+      - i2.2xlarge
+      - i2.4xlarge
+      - i2.8xlarge
+      - i3.large
+      - i3.xlarge
+      - i3.2xlarge
+      - i3.4xlarge
+      - i3.8xlarge
+      - i3.16xlarge
+      - h1.2xlarge
+      - h1.4xlarge
+      - h1.8xlarge
+      - h1.16xlarge
+      - hs1.8xlarge
+      - d2.xlarge
+      - d2.2xlarge
+      - d2.4xlarge
+      - d2.8xlarge
+      - c5n.large
+      - c5n.xlarge
+      - c5n.2xlarge
+      - c5n.4xlarge
+      - c5n.9xlarge
+      - c5n.18xlarge
+  VPCIPRange:
+    Description: Class C IP range
+    AllowedValues:
+      - 192.168.1.0/24
+      - 192.168.2.0/24
+      - 192.168.3.0/24
+      - 192.168.4.0/24
+      - 192.168.5.0/24
+      - 192.168.6.0/24
+      - 192.168.7.0/24
+      - 192.168.8.0/24
+      - 192.168.9.0/24
+      - 192.168.10.0/24
+      - 192.168.11.0/24
+      - 192.168.12.0/24
+      - 192.168.13.0/24
+      - 192.168.14.0/24
+      - 192.168.15.0/24
+      - 192.168.16.0/24
+      - 192.168.17.0/24
+      - 192.168.18.0/24
+      - 192.168.19.0/24
+      - 192.168.20.0/24
+    Default: 192.168.1.0/24
+    Type: String
+  DiskVolumeSize:
+    Default: 32
+    Description: Disk volume size in GB. Must be at least 32.
+    ConstraintDescription: Must be a number greater or equal to 32
+    MinValue: 32
+    Type: Number
+  InputCIDR:
+    Description: Public IP address range for SSH and web access. Use a CIDR range to restrict access. To get your local machine's IP, see http://checkip.dyndns.org/. (Remember to append /32 for a single IP e.g. 12.34.56.78/32) For security reasons, do not use 0.0.0.0/0.
+    AllowedPattern: ([1-9]\d{0,2})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/([1-9]\d{0,1})
+    ConstraintDescription: Must be a valid IP CIDR range in the form of x.x.x.x/x. Do not use 0.0.0.0/0.
+    Type: String
+  SFTPInputCIDR:
+    Default: 0.0.0.0/0
+    Description: Public IP address range for SFTP access. Defaults to being open to the public (0.0.0.0/0), since the web admin portal lets you restrict IP ranges on a per-user basis.
+    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,3})
+    ConstraintDescription: Must be a valid IP CIDR range in the form of x.x.x.x/x.
+    Type: String
+  KeyPair:
+    Description: Make sure you have access to this EC2 key pair. Otherwise, create a new key pair before proceeding.
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: Existing EC2 KeyPair.
+  BucketAccess:
+    Description: Choose "open" to allow full S3 access to support multiple buckets. Or "restrict" S3 permissions to our default bucket naming convention "sftpgw-<instance-id>".
+    Default: restricted
+    Type: String
+    AllowedValues:
+      - open
+      - restricted
+Resources:
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
+  PublicRouteAssociationA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnetA
+  PublicRouteAssociationB:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnetB
+  PublicRouteTable:
+    DependsOn: AttachGateway
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+  PublicDefaultRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+      RouteTableId: !Ref PublicRouteTable
+  PublicSubnetA:
+    DependsOn:
+      - AttachGateway
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs
+          Ref: AWS::Region
+      CidrBlock: !Select [ 0, !Cidr [ !Ref VPCIPRange, 16, 4 ]]
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref VPC
+  PublicSubnetB:
+    DependsOn:
+      - AttachGateway
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 1
+        - !GetAZs
+          Ref: AWS::Region
+      CidrBlock: !Select [ 1, !Cidr [ !Ref VPCIPRange, 16, 4 ]]
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref VPC
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VPCIPRange
+      EnableDnsHostnames: true
+  SFTPGatewayInstance:
+    DependsOn:
+      - RolePolicies
+    Type: AWS::EC2::Instance
+    Properties:
+      IamInstanceProfile: !Ref EC2InstanceProfile
+      ImageId: !FindInMap
+        - RegionMap
+        - !Ref AWS::Region
+        - AMI
+      KeyName: !Ref KeyPair
+      InstanceType: !Ref EC2Type
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeSize: !Ref DiskVolumeSize
+            VolumeType: gp2
+            Encrypted: 'true'
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: "0"
+          SubnetId: !Ref PublicSubnetA
+          GroupSet:
+            - !Ref SFTPGatewaySG
+      Tags:
+        - Key: Name
+          Value: SFTPGateway
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          # Magic variable read by cloud-init sftpgatewaysetup script
+          cfn-init --stack ${AWS::StackName} --resource SFTPGatewayInstance --region ${AWS::Region}
+          cfn-signal -e 0 --stack ${AWS::StackName} --resource SFTPGatewayInstance --region ${AWS::Region}
+    CreationPolicy:
+      ResourceSignal:
+        Count: 1
+        Timeout: PT15M
+  IPAddress:
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref SFTPGatewayInstance
+    Type: AWS::EC2::EIP
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub sftpgw-${AWS::StackName}
+  EC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - !If [S3IsRestricted, !Ref RestrictedSFTPGWRole, !Ref OpenSFTPGWRole]
+  RestrictedSFTPGWRole:
+    Type: AWS::IAM::Role
+    Condition: S3IsRestricted
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+  OpenSFTPGWRole:
+    Type: AWS::IAM::Role
+    Condition: S3IsOpen
+    Properties:
+      Path: /
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/AmazonS3FullAccess
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+  RolePolicies:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: SFTPGatewayPolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: 's3:*'
+            Resource: !Sub 'arn:${AWS::Partition}:s3:::sftpgw-i-*'
+          - Effect: Allow
+            Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              - logs:DescribeLogStreams
+              - logs:CreateLogGroup
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - ec2:DescribeAvailabilityZones
+              - ec2:DescribeInstances
+              - ec2:DescribeTags
+              - s3:ListAllMyBuckets
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - cloudformation:DescribeStacks
+              - cloudformation:ListStackResources
+            Resource: '*'
+      Roles:
+        - !If [S3IsRestricted, !Ref RestrictedSFTPGWRole, !Ref OpenSFTPGWRole]
+  SFTPGatewaySG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SFTPGateway Security Group
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref SFTPInputCIDR
+        - IpProtocol: tcp
+          FromPort: 2222
+          ToPort: 2222
+          CidrIp: !Ref InputCIDR
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: !Ref InputCIDR
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: !Ref InputCIDR
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: udp
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+Outputs:
+  Hostname:
+    Value: !Ref IPAddress
+    Description: Elastic IP address
+  DefaultBucket:
+    Value: !Sub sftpgw-${SFTPGatewayInstance}
+    Description: Default S3 bucket
+  CloudWatchLogs:
+    Value: !Ref LogGroup
+    Description: CloudWatch logs
