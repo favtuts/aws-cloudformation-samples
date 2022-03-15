@@ -2,7 +2,7 @@
 
 ## Spin up the CloudFormation for wp surestack
 
-* Download the cloudformation template: https://s3.amazonaws.com/thorntech-public-documents/cf-templates/WPSureStack.json
+* Download the cloudformation template: [WPSureStack.json](../WPSureStack.json)
 * Go to AWS > CloudFormation > Create Stack
 * Fill out the appropriate fields
 
