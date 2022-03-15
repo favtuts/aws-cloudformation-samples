@@ -1,4 +1,4 @@
-# SFTP Gateway High Availability Well-Architected
+# SFTP Gateway Product Overview
 
 SFTP Gateway is an all-in-one solution to provide and configure SFTP access to limitless and reliable cloud storage locations, like S3. It includes a web interface and REST API that simplifies user management, folder permissions and instance administration, whether you're supporting a single user or thousands.
 
