@@ -30,7 +30,7 @@ For setup instructions, click [here](Setup.md).
 # Links
 
 * [CloudFormation Template](../WPSureStack.json) - No setup is necessary if you use this CloudFormation template. This template uses the proper AMI based on your region.
-* [List of all wiki pages](/)
+* [List of all wiki pages](./)
 
 # Troubleshooting
 
