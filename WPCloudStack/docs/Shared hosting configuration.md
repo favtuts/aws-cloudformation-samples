@@ -1,8 +1,8 @@
 # Create a shared hosting environment with multiple users and multiple PHP versions
 
-## Spin up the CloudFormation for wp surestack
+## Spin up the CloudFormation for wp cloudstack
 
-* Download the cloudformation template: [WPSureStack.json](../WPSureStack.json)
+* Download the cloudformation template: [WPCloudStack.json](../WPCloudStack.json)
 * Go to AWS > CloudFormation > Create Stack
 * Fill out the appropriate fields
 

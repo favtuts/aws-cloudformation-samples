@@ -71,7 +71,7 @@ our work to encrypt the web, protect its users and defend digital rights.
 (Y)es/(N)o: N
 ```
 
-(j) Make a note of which nginx conf file that letsencrypt is making changes to. In my case, I was using a test box (didn't do this on WP SureStack, so it's using virtual.conf)
+(j) Make a note of which nginx conf file that letsencrypt is making changes to. In my case, I was using a test box (didn't do this on WP CloudStack, so it's using virtual.conf)
 
 ```
 Deploying Certificate to VirtualHost /etc/nginx/conf.d/virtual.conf
