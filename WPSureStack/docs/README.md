@@ -1,15 +1,15 @@
-# WP SureStack
+# WP CloudStack
 
-With WP SureStack, you can create a WordPress stack that is performant, scalable, cost-effective, and easy to maintain.
+With WP CloudStack, you can create a WordPress stack that is performant, scalable, cost-effective, and easy to maintain.
 
-WP SureStack uses a combination of plugins and services to help optimize your WordPress setup on AWS.  
+WP CloudStack uses a combination of plugins and services to help optimize your WordPress setup on AWS.  
 We also packed in a lot of useful features into our CloudFormation template and pre-configured server, so you can hit the ground running with a working WordPress site in minutes.
 
-If you’re thinking about creating your next WordPress site but don’t have the time to ramp up on learning AWS and Linux, give WP SureStack a try.
+If you’re thinking about creating your next WordPress site but don’t have the time to ramp up on learning AWS and Linux, give WP CloudStack a try.
 
 ## Features
 
-WP SureStack uses the following technologies:
+WP CloudStack uses the following technologies:
 
 * **Nginx**: a fast and light-weight web server
 * **Nginx FastCGI Cache**: provides page-level caching at the web server level
@@ -27,7 +27,7 @@ For setup instructions, click [here](Setup.md).
 
 ## Links
 
-* [CloudFormation Template](../WPSureStack.json) - No setup is necessary if you use this CloudFormation template. This template uses the proper AMI based on your region.
+* [CloudFormation Template](../WPCloudStack.json) - No setup is necessary if you use this CloudFormation template. This template uses the proper AMI based on your region.
 * [List of all wiki pages](./)
 
 
