@@ -20,5 +20,12 @@ It is pre-configured with industry-standard best practices for security, reliabi
 * Automated integration with S3, CloudFront (CDN), and AuroraDB via CloudFormation template.
 * Additional optimizations that improve caching, security, and memory monitoring
 
+# Deployment Architecture
+
+![WPSureStack-Architecture](WPSureStack-Architecture.png)
+
 # CloudFormation Template
+
+[WP SureStack CloudFormation Template](WPSureStack-CF-Template.json)
+
 
