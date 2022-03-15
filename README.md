@@ -4,3 +4,4 @@ Collection of useful AWS CloudFormation templates for real cases. Refer to: http
 # aws cloudformation samples
 
 * [How to incorporate S3, EC2, and IAM in a CloudFormation template](S3-EC2-IAM-stack/README.md)
+* [How to create a Redshift stack with AWS CloudFormation](Redshift-VPC-S3-stack/README.md)
