@@ -22,7 +22,7 @@ Within the AWS console:
 
 Download the following CloudFormation template: 
 
-**[WPSureStack.json](https://s3.amazonaws.com/thorntech-public-documents/cf-templates/WPSureStack.json)**
+**[WPSureStack.json](../WPSureStack.json)**
 
 1. Within the AWS console, go to **CloudFormation** and click **Create Stack**.
 1. On the **Select Template** page, click the **Choose File** button to upload a template to Amazon S3.
