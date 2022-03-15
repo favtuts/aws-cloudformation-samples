@@ -26,6 +26,7 @@ It is pre-configured with industry-standard best practices for security, reliabi
 
 # CloudFormation Template
 
-[WP SureStack CloudFormation Template](WPSureStack-CF-Template.json)
+[WP SureStack CloudFormation JSON Template](WPSureStack-CF-Template.json)
+[WP SureStack CloudFormation YAML Template](WPSureStack-CF-Template.yml)
 
 
