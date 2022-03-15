@@ -27,6 +27,7 @@ Data is encrypted in transit and at rest.
 
 # Single Instance Architecture
 
+![SFTP-Gateway-SI](SFTP-Gateway-for-AWS-Single-Instance-Architecture.png)
 
 # CloudFormation Templates
 
