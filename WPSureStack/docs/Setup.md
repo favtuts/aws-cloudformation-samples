@@ -1,7 +1,7 @@
-# WP SureStack setup using CloudFormation
+# WP CloudStack setup using CloudFormation
 
 
-WP SureStack relies on a handful of AWS services that help improve the performance and scalability of your WordPress site. Our CloudFormation template not only sets up your WordPress server, but it also integrates your WordPress site with S3, CloudFront, and AuroraDB.
+WP CloudStack relies on a handful of AWS services that help improve the performance and scalability of your WordPress site. Our CloudFormation template not only sets up your WordPress server, but it also integrates your WordPress site with S3, CloudFront, and AuroraDB.
 
 CloudFormation lets you easily provision servers, databases, and other resources by describing them in a JSON document. CloudFormation is a great tool for provisioning your entire infrastructure in an automated fashion.  
 
@@ -22,11 +22,11 @@ Within the AWS console:
 
 Download the following CloudFormation template: 
 
-**[WPSureStack.json](../WPSureStack.json)**
+**[WPCloudStack.json](../WPCloudStack.json)**
 
 1. Within the AWS console, go to **CloudFormation** and click **Create Stack**.
 1. On the **Select Template** page, click the **Choose File** button to upload a template to Amazon S3.
-1. Select the `WPSureStack.json` file you downloaded, then click **Next**.
+1. Select the `WPCloudStack.json` file you downloaded, then click **Next**.
 1. On the **Create Stack** form, fill out the information as follows:
 
 **Specify Details**
@@ -47,7 +47,7 @@ This section is where you name some of your website resources.
 
 * **BucketName**: Your image uploads will get copied to this S3 bucket, which acts as a CDN origin for CloudFront. Make sure the bucket name is unique.
 * **WebsiteTitle**: This is the **Site Title** of your WordPress website.
-* **WebsiteDomain**: You can leave this blank, and WP SureStack will just use your public IP as your URL. If you happen to have a domain name registered, enter it here. Just remember to point your DNS to the public IP address.
+* **WebsiteDomain**: You can leave this blank, and WP CloudStack will just use your public IP as your URL. If you happen to have a domain name registered, enter it here. Just remember to point your DNS to the public IP address.
 
 **Note**: You can change your domain name later on. Check our documentation to learn more.
 
